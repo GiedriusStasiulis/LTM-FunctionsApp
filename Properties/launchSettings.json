@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "LTM-FunctionApp": {
+      "commandName": "Project"
+    }
+  }
+}
