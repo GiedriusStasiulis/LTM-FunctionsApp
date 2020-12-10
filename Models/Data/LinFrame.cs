@@ -1,4 +1,4 @@
-﻿namespace LTM_AzureFunctionsApp.Models.Data
+﻿namespace LTM_FunctionsApp.Models.Data
 {
     public class LinFrame
     {

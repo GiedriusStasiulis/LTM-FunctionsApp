@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
-namespace LTM_AzureFunctionsApp.Models.Data
+namespace LTM_FunctionsApp.Models.Data
 {
+    [JsonObject(ItemRequired = Required.Always)]
     public class LinFramesPacket
     {
         public int PCKNO { get; set; }
@@ -9,5 +11,6 @@ namespace LTM_AzureFunctionsApp.Models.Data
         public string DEVID { get; set; }
 
         public List<LinFrame> FRAMES { get; set; }
+
     }
 }
