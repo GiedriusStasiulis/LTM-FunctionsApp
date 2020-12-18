@@ -15,15 +15,16 @@ namespace LTM_FunctionsApp.Shared
                 {
                     deserializedObj = JsonConvert.DeserializeObject<A>(jsonString);
                     return Tuple.Create(deserializedObj, true, "Parse OK");
-                }
-                catch(Exception ex)
+                }catch(Exception ex)
                 {
-                    return Tuple.Create(deserializedObj, false, $"Exception caught: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                    return Tuple.Create(deserializedObj, false, $"Exception caught: {ex.Message}" +
+                        $"\nStackTrace: {ex.StackTrace}");
                 }
             }
             else
             {
-                return Tuple.Create(deserializedObj, false, $"Empty, null or whitespace string? String content: '{jsonString}'");
+                return Tuple.Create(deserializedObj, false, 
+                    $"Empty, null or whitespace string? String content: '{jsonString}'");
             }
         }
     }

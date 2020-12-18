@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace LTM_FunctionsApp.Models.Data
 {
-    [JsonObject(ItemRequired = Required.Always)]
+    [Serializable]
+    [JsonObject(ItemRequired = Required.Always)]    
     public class LinFramesPacket
     {
         public int PCKNO { get; set; }

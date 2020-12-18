@@ -14,32 +14,33 @@ namespace LTM_FunctionsApp.UnitTests
         public List<LinFrame> _linFrames;
         public LinFramesPacket _linFramesPacket;
 
-        public string linFramePacketJsonOK = "{\"PCKNO\":1,\"DEVID\":\"ESP32SIM1_1607594372\",\"FRAMES\":[{\"FNO\":1,\"FDATA\":\"12 34 56 78 91 23 45 67 89\"},{\"FNO\":2,\"FDATA\":\"98 76 54 32 19 87 65 43 21\"}]}";
-        public string linFramePacketJsonBAD_IncorrectPCKNOName = "{\"PACKNumber\":1,\"DEVID\":\"ESP32SIM1_1607594372\",\"FRAMES\":[{\"FNO\":1,\"FDATA\":\"12 34 56 78 91 23 45 67 89\"},{\"FNO\":2,\"FDATA\":\"98 76 54 32 19 87 65 43 21\"}]}";
-        public string linFramePacketJsonBAD_InvalidPCKNOType = "{\"PCKNO\":\"1\",\"DEVID\":\"ESP32SIM1_1607594372\",\"FRAMES\":[{\"FNO\":1,\"FDATA\":\"12 34 56 78 91 23 45 67 89\"},{\"FNO\":2,\"FDATA\":\"98 76 54 32 19 87 65 43 21\"}]}";
-        public string linFramePacketJsonBAD_EmptyPCKNO = "{\"PCKNO\":,\"DEVID\":\"ESP32SIM1_1607594372\",\"FRAMES\":[{\"FNO\":1,\"FDATA\":\"12 34 56 78 91 23 45 67 89\"},{\"FNO\":2,\"FDATA\":\"98 76 54 32 19 87 65 43 21\"}]}";
-        public string linFramePacketJsonBAD_MissingPCKNO = "{\"DEVID\":\"ESP32SIM1_1607594372\",\"FRAMES\":[{\"FNO\":1,\"FDATA\":\"12 34 56 78 91 23 45 67 89\"},{\"FNO\":2,\"FDATA\":\"98 76 54 32 19 87 65 43 21\"}]}";
+        public string linFramePacketJsonOK = "{\"PCKNO\":1,\"DEVID\":\"ESP32SIM1_1607594372\",\"FRAMES\":[{\"FNO\":1,\"FDATA\":\"123456789123456789\"},{\"FNO\":2,\"FDATA\":\"987654321987654321\"}]}";
+        public string linFramePacketJsonBAD_IncorrectPCKNOName = "{\"PACKNumber\":1,\"DEVID\":\"ESP32SIM1_1607594372\",\"FRAMES\":[{\"FNO\":1,\"FDATA\":\"123456789123456789\"},{\"FNO\":2,\"FDATA\":\"987654321987654321\"}]}";
+        public string linFramePacketJsonBAD_InvalidPCKNOType = "{\"PCKNO\":\"1\",\"DEVID\":\"ESP32SIM1_1607594372\",\"FRAMES\":[{\"FNO\":1,\"FDATA\":\"123456789123456789\"},{\"FNO\":2,\"FDATA\":\"987654321987654321\"}]}";
+        public string linFramePacketJsonBAD_EmptyPCKNO = "{\"PCKNO\":,\"DEVID\":\"ESP32SIM1_1607594372\",\"FRAMES\":[{\"FNO\":1,\"FDATA\":\"123456789123456789\"},{\"FNO\":2,\"FDATA\":\"987654321987654321\"}]}";
+        public string linFramePacketJsonBAD_MissingPCKNO = "{\"DEVID\":\"ESP32SIM1_1607594372\",\"FRAMES\":[{\"FNO\":1,\"FDATA\":\"123456789123456789\"},{\"FNO\":2,\"FDATA\":\"987654321987654321\"}]}";
         public string linFramesPacketJsonBAD_Empty = "";
         public string linFramesPacketJsonBAD_WhiteSpace = " ";
 
         public string userSettingsItemJsonOK = "";
         public string userSettingsItemJsonBAD = "";
 
-        readonly IObjectParseResultService<LinFramesPacket> _testServiceForLinFramePacket = new ObjectParseResultService<LinFramesPacket>();
-        readonly IObjectParseResultService<UserSettingsItem> _testServiceForUserSettingsItem = new ObjectParseResultService<UserSettingsItem>();
+        readonly IObjectParseResultService<LinFramesPacket> _testServiceForLinFramePacket 
+            = new ObjectParseResultService<LinFramesPacket>();
 
         [TestInitialize]
         public void Setup()
         {
-            _linFrame1 = new LinFrame() { FNO = 1, FDATA = "12 34 56 78 91 23 45 67 89" };
-            _linFrame2 = new LinFrame() { FNO = 2, FDATA = "98 76 54 32 19 87 65 43 21" };
+            _linFrame1 = new LinFrame() { FNO = 1, FDATA = "123456789123456789" };
+            _linFrame2 = new LinFrame() { FNO = 2, FDATA = "987654321987654321" };
 
-            _linFrames = new List<LinFrame>();
+            _linFrames = new List<LinFrame>
+            {
+                _linFrame1, _linFrame2
+            };
 
-            _linFrames.Add(_linFrame1);
-            _linFrames.Add(_linFrame2);
-
-            _linFramesPacket = new LinFramesPacket() { PCKNO = 1, DEVID = "ESP32SIM1_1607594372" , FRAMES = _linFrames };
+            _linFramesPacket = new LinFramesPacket() { PCKNO = 1, DEVID = "ESP32SIM1_1607594372" , 
+                FRAMES = _linFrames };
         }
 
         [TestMethod]
@@ -59,7 +60,7 @@ namespace LTM_FunctionsApp.UnitTests
 
             Assert.AreEqual(result.Item1, null);
             Assert.IsTrue(!result.Item2);
-            Assert.IsTrue(result.Item3.Contains("EXCEPTION MESSAGE"));
+            Assert.IsTrue(result.Item3.Contains("Exception caught:"));
         }
 
         [TestMethod]
@@ -69,7 +70,7 @@ namespace LTM_FunctionsApp.UnitTests
 
             Assert.AreEqual(result.Item1, null);
             Assert.IsTrue(!result.Item2);
-            Assert.IsTrue(result.Item3.Contains("EXCEPTION MESSAGE"));
+            Assert.IsTrue(result.Item3.Contains("Exception caught:"));
         }
 
         [TestMethod]
@@ -79,7 +80,7 @@ namespace LTM_FunctionsApp.UnitTests
 
             Assert.AreEqual(result.Item1, null);
             Assert.IsTrue(!result.Item2);
-            Assert.IsTrue(result.Item3.Contains("EXCEPTION MESSAGE"));
+            Assert.IsTrue(result.Item3.Contains("Exception caught:"));
         }
 
         [TestMethod]
@@ -89,7 +90,7 @@ namespace LTM_FunctionsApp.UnitTests
 
             Assert.AreEqual(result.Item1, null);
             Assert.IsTrue(!result.Item2);
-            Assert.IsTrue(result.Item3.Contains("EXCEPTION MESSAGE"));
+            Assert.IsTrue(result.Item3.Contains("Exception caught:"));
         }
 
         [TestMethod]
@@ -99,7 +100,7 @@ namespace LTM_FunctionsApp.UnitTests
 
             Assert.AreEqual(result.Item1, null);
             Assert.IsTrue(!result.Item2);
-            Assert.IsTrue(result.Item3.Contains("Empty, null or whitespace string"));
+            Assert.IsTrue(result.Item3.Contains("Empty, null or whitespace string?"));
         }
 
         [TestMethod]
@@ -109,7 +110,7 @@ namespace LTM_FunctionsApp.UnitTests
 
             Assert.AreEqual(result.Item1, null);
             Assert.IsTrue(!result.Item2);
-            Assert.IsTrue(result.Item3.Contains("Empty, null or whitespace string"));
+            Assert.IsTrue(result.Item3.Contains("Empty, null or whitespace string?"));
         }
     }
 }
