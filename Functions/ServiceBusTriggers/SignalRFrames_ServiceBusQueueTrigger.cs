@@ -15,13 +15,9 @@ namespace LTM_FunctionsApp.Functions.ServiceBusTriggers
     {
         [FunctionName("SignalRFrames_ServiceBusQueueTrigger")]
         public static async Task Run(
-        [ServiceBusTrigger("signalr-frames-servicebus-queue", 
-            Connection = "ServiceBusConnectionString", 
-            IsSessionsEnabled = true)] 
-            Message serviceBusMsg, 
-            ILogger log,
-        [SignalR(HubName = Global.SignalRHubName)] 
-            IAsyncCollector<SignalRMessage> signalRMessages,
+        [ServiceBusTrigger("signalr-frames-servicebus-queue", Connection = "ServiceBusConnectionString", 
+            IsSessionsEnabled = true)] Message serviceBusMsg, ILogger log,
+        [SignalR(HubName = Global.SignalRHubName)] IAsyncCollector<SignalRMessage> signalRMessages,
         [Queue("error-frames-storage-queue", Connection = "AzureWebJobsStorage")] 
             IAsyncCollector<string> errorFramesStorageQueue)
         {
@@ -37,8 +33,7 @@ namespace LTM_FunctionsApp.Functions.ServiceBusTriggers
 
                 SignalRMessage signalRMessage = new SignalRMessage()
                 {
-                    Target = "notifyFrames",
-                    GroupName = deviceIdShort,
+                    Target = "notifyFrames", GroupName = deviceIdShort, 
                     Arguments = new[] { JsonConvert.SerializeObject(jsonParseResult) }
                 };
 

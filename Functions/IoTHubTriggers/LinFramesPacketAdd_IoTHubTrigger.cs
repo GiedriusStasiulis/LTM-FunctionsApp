@@ -46,7 +46,7 @@ namespace LTM_AzureFunctionsApp.Functions.IoTHubTriggers
                     };
 
                     //Send message to ServiceBus queue: signalr-frames-servicebus-queue
-                    await signalRFramesServiceBusQueue.SendAsync(message)
+                    await signalRFramesServiceBusQueue.SendAsync(message);
                     //Send LinFramesPacket to Storage queue: db-insert-frames-storage-queue
                     await dbInsertFramesStorageQueue.AddAsync(jsonParseResult.Item1);
                 }

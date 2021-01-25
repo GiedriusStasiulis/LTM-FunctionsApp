@@ -17,7 +17,7 @@ namespace LTM_FunctionsApp.Functions.StorageQueueTriggers
         [CosmosDB(databaseName: "ltmdb", 
             collectionName: "linFramesPacketsCollection", 
             ConnectionStringSetting = "CosmosDBConnectionString", 
-            CreateIfNotExists = false, PartitionKey = "/DEVID")] 
+            CreateIfNotExists = true, PartitionKey = "/DEVID")] 
             IAsyncCollector<LinFramesPacket> linFramesPacketOut,
         [Queue("error-frames-storage-queue", Connection = "AzureWebJobsStorage")] 
             IAsyncCollector<string> errorFramesStorageQueue)

@@ -13,10 +13,17 @@ namespace LTM_AzureFunctionsApp.Functions.UserFunctions
         [FunctionName(nameof(AddUserToSignalRGroup))]
         [FixedDelayRetry(5, "00:00:10")]
         public static IActionResult Run(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "AddUserToSignalRGroup/{deviceId}")] HttpRequest req, string deviceId, ILogger log,
-        [SignalR(HubName = Global.SignalRHubName)]IAsyncCollector<SignalRGroupAction> signalRGroupActions)
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", 
+            Route = "AddUserToSignalRGroup/{deviceId}")] 
+        HttpRequest req, string deviceId, ILogger log,
+        [SignalR(HubName = Global.SignalRHubName)]
+            IAsyncCollector<SignalRGroupAction> signalRGroupActions)
         {
-            signalRGroupActions.AddAsync(new SignalRGroupAction { UserId = req.Headers["X-MS-CLIENT-PRINCIPAL-ID"], GroupName = deviceId, Action = GroupAction.Add });
+            signalRGroupActions.AddAsync(
+                new SignalRGroupAction { 
+                    UserId = req.Headers["X-MS-CLIENT-PRINCIPAL-ID"], 
+                    GroupName = deviceId, 
+                    Action = GroupAction.Add });
 
             return new OkObjectResult(HttpStatusCode.OK);
         }

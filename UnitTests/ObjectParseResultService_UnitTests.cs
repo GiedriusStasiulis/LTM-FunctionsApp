@@ -47,7 +47,6 @@ namespace LTM_FunctionsApp.UnitTests
         public void IsLinFramePacketJsonFormatOK_ReturnTrue()
         {
             var result = _testServiceForLinFramePacket.TryParseObject(linFramePacketJsonOK);
-
             Assert.AreEqual(JsonConvert.SerializeObject(result.Item1),JsonConvert.SerializeObject(_linFramesPacket));            
             Assert.IsTrue(result.Item2);
             Assert.IsTrue(result.Item3.Equals("Parse OK"));
@@ -57,7 +56,6 @@ namespace LTM_FunctionsApp.UnitTests
         public void IsLinFramePacketJsonIncorrectPCKNOName_ReturnTrue()
         {
             var result = _testServiceForLinFramePacket.TryParseObject(linFramePacketJsonBAD_IncorrectPCKNOName);
-
             Assert.AreEqual(result.Item1, null);
             Assert.IsTrue(!result.Item2);
             Assert.IsTrue(result.Item3.Contains("Exception caught:"));
@@ -67,7 +65,6 @@ namespace LTM_FunctionsApp.UnitTests
         public void IsLinFramePacketJsonInvalidPCKNOType_ReturnTrue()
         {
             var result = _testServiceForLinFramePacket.TryParseObject(linFramePacketJsonBAD_IncorrectPCKNOName);
-
             Assert.AreEqual(result.Item1, null);
             Assert.IsTrue(!result.Item2);
             Assert.IsTrue(result.Item3.Contains("Exception caught:"));
@@ -77,7 +74,6 @@ namespace LTM_FunctionsApp.UnitTests
         public void IsLinFramePacketJsonEmptyPCKNO_ReturnTrue()
         {
             var result = _testServiceForLinFramePacket.TryParseObject(linFramePacketJsonBAD_IncorrectPCKNOName);
-
             Assert.AreEqual(result.Item1, null);
             Assert.IsTrue(!result.Item2);
             Assert.IsTrue(result.Item3.Contains("Exception caught:"));
@@ -87,7 +83,6 @@ namespace LTM_FunctionsApp.UnitTests
         public void IsLinFramePacketJsonMissingPCKNO_ReturnTrue()
         {
             var result = _testServiceForLinFramePacket.TryParseObject(linFramePacketJsonBAD_IncorrectPCKNOName);
-
             Assert.AreEqual(result.Item1, null);
             Assert.IsTrue(!result.Item2);
             Assert.IsTrue(result.Item3.Contains("Exception caught:"));
@@ -97,7 +92,6 @@ namespace LTM_FunctionsApp.UnitTests
         public void IsLinFramePacketJsonEmpty_ReturnTrue()
         {
             var result = _testServiceForLinFramePacket.TryParseObject(linFramesPacketJsonBAD_Empty);
-
             Assert.AreEqual(result.Item1, null);
             Assert.IsTrue(!result.Item2);
             Assert.IsTrue(result.Item3.Contains("Empty, null or whitespace string?"));
@@ -107,7 +101,6 @@ namespace LTM_FunctionsApp.UnitTests
         public void IsLinFramePacketJsonWhiteSpace_ReturnTrue()
         {
             var result = _testServiceForLinFramePacket.TryParseObject(linFramesPacketJsonBAD_WhiteSpace);
-
             Assert.AreEqual(result.Item1, null);
             Assert.IsTrue(!result.Item2);
             Assert.IsTrue(result.Item3.Contains("Empty, null or whitespace string?"));
